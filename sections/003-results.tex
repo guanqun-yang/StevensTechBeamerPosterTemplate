@@ -1,0 +1,68 @@
+% ============================================
+% RESULTS column - main results, ablation, findings
+% ============================================
+
+\begin{block}{Main Results}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+
+\vspace{0.4em}
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Lorem} & \textbf{P} & \textbf{R} & \textbf{F1} & \textbf{Acc.} \\
+\midrule
+Ipsum dolor (100\%)   & .834 & .821 & .827 & 85.3 \\
+Sit amet (100\%)      & .856 & .847 & .851 & 87.1 \\
+Consectetur (100\%)   & .872 & .858 & .865 & 88.0 \\
+\midrule
+Ours (10\%)           & .871 & .863 & \textbf{.867} & \textbf{88.4} \\
+Ours (50\%)           & .896 & .889 & \textbf{.892} & \textbf{90.5} \\
+Ours (100\%)          & .912 & .905 & \textbf{.908} & \textbf{91.7} \\
+\bottomrule
+\end{tabular}
+\end{block}
+
+\begin{colorblock}[white]{stevensred}{Key Finding}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+\end{colorblock}
+
+\begin{block}{Ablation Study}
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.
+
+\vspace{0.4em}
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Configuration} & \textbf{F1} & \textbf{$\Delta$} \\
+\midrule
+Full model            & \textbf{0.908} & --- \\
+$-$ Lorem             & 0.881 & $-$0.027 \\
+$-$ Ipsum             & 0.873 & $-$0.035 \\
+$-$ Dolor             & 0.854 & $-$0.054 \\
+$-$ Lorem + Ipsum     & 0.842 & $-$0.066 \\
+$-$ All components    & 0.827 & $-$0.081 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\raggedright Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.
+\end{block}
+
+\begin{block}{Findings \& Limitations}
+\textbf{Lorem ipsum:}
+\begin{itemize}
+    \item Consectetur adipiscing elit, sed do eiusmod tempor incididunt
+    \item Ut labore et dolore magna aliqua, ut enim ad minim veniam
+    \item Quis nostrud exercitation ullamco laboris nisi ut aliquip
+    \item Duis aute irure dolor in reprehenderit in voluptate velit
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Dolor sit amet:}
+\begin{itemize}
+    \item Excepteur sint occaecat cupidatat non proident sunt
+    \item Qui officia deserunt mollit anim id est laborum
+    \item Sed ut perspiciatis unde omnis iste natus error sit
+\end{itemize}
+\end{block}
