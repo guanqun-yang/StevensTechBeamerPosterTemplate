@@ -8,8 +8,10 @@
 A clean, professional **A0 conference poster template** in official **Stevens Institute of Technology** branding. Built on `beamerposter` with the [Moloch](https://github.com/jolists/moloch) theme, Stevens red color scheme, custom block environments, an adaptive multi-column layout, and a one-line orientation toggle.
 
 <p align="center">
-  <img src="assets/stevens-long-logo.png" alt="Stevens Logo" width="300"/>
+  <img src="assets/preview-landscape.png" alt="Poster preview (A0 landscape)" width="900"/>
 </p>
+
+<p align="center"><sub>Default A0 landscape compile -- four-column adaptive flow, Stevens-branded header, QR / image corner, and footer URL strip.</sub></p>
 
 ---
 
