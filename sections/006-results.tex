@@ -1,0 +1,49 @@
+% ============================================
+% Section 6: Results -- one block per RQ, each ending in a takeawaybox.
+% Lives in the RIGHT column. The takeawaybox is the visual anchor: cream
+% body, red left rule, bold "Takeaway." prefix -- much easier to scan
+% than a plain \paragraph{Takeaway.} or a white-on-red colorblock.
+% ============================================
+
+\begin{block}{Lorem Ipsum (RQ1): Dolor Sit}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Lorem} & \textbf{Ipsum} & \textbf{Dolor} \\
+\midrule
+Lorem A      & --       & --       \\
+Ipsum B      & --       & --       \\
+\midrule
+\textbf{\system} & \textbf{--} & \textbf{--} \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\raggedright
+\begin{takeawaybox}
+\system{} lorem ipsum dolor sit amet, consectetur adipiscing elit; sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+\end{takeawaybox}
+\end{block}
+
+\begin{block}{Lorem Ipsum (RQ2): Amet Consectetur}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Lorem} & \textbf{Ipsum} & \textbf{Dolor} \\
+\midrule
+C1 (lorem)       & -- & -- \\
+C2 (ipsum)       & -- & -- \\
+C3 (dolor)       & -- & -- \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\raggedright
+\begin{takeawaybox}
+\system{} recuperat lorem ipsum dolorum. \textbf{Capability gap:} consectetur adipiscing elit sed do eiusmod tempor incididunt. Deploy lorem; withhold ipsum.
+\end{takeawaybox}
+\end{block}

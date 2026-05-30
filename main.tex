@@ -1,7 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ORIENTATION TOGGLE
-%   - posterlandscapetrue  -> A0 landscape (1189 x 841 mm), 4 columns
-%   - posterlandscapefalse -> A0 portrait  (841 x 1189 mm), 3 columns
+%   - posterlandscapetrue  -> A0 landscape (1189 x 841 mm)
+%   - posterlandscapefalse -> A0 portrait  (841 x 1189 mm)
+%
+% The body layout is FIGURE-CENTRIC: a narrow left column, a wide
+% center column with a hero diagram on top and two sub-columns of
+% text below, and a narrow right column for results + take-home.
+% This layout is tuned for landscape; portrait still compiles but
+% the center column becomes proportionally narrower.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newif\ifposterlandscape
@@ -16,7 +22,7 @@
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ASSET PATH - Allow LaTeX to find .sty and images in assets/
+% ASSET PATH - Allow LaTeX to find .sty and images in assets/ and figures/
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \makeatletter
@@ -43,10 +49,10 @@
 \setbeamertemplate{headline}{}
 \setbeamertemplate{navigation symbols}{}
 % Footer is anchored to the bottom of the page via beamer's footline template
-% (defined further down once \hrefcol and Stevens colors are in scope).
+% (defined further down once Stevens colors are in scope).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% COLOR DEFINITIONS (Stevens color compatibility)
+% COLOR DEFINITIONS (Stevens palette)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{xcolor}
@@ -65,7 +71,7 @@
 \definecolor{stevenslightgold}{RGB}{255,250,230}
 \definecolor{stevenslightred}{RGB}{255,230,232}
 
-% SINTEF colors (for legacy compatibility)
+% SINTEF colors (for legacy compatibility with the Moloch theme files)
 \definecolor{sintefgrey}{RGB}{228,229,230}
 \definecolor{sintefdarkgrey}{RGB}{127,127,127}
 \colorlet{sintefgray}{sintefgrey}
@@ -102,7 +108,7 @@
 \setbeamerfont{block body}{size=\normalsize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CUSTOM COLORBLOCK ENVIRONMENT
+% CUSTOM BLOCK ENVIRONMENTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % colorblock: \begin{colorblock}[text color]{background color}{title}
@@ -116,7 +122,7 @@
   \endgroup
 }
 
-% contribblock: colored header (white text), light gray body (black text)
+% contribblock: red header (white text), near-white body (black text)
 \definecolor{contribbg}{RGB}{245,245,245}
 \newenvironment{contribblock}[1]{%
   \begingroup
@@ -141,6 +147,28 @@
 \captionsetup{font=small}
 \usepackage{multicol}
 \usepackage{etoolbox}
+\usepackage{xspace}
+\usepackage{listings}
+\usepackage[most]{tcolorbox}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Takeaway callout: light cream body with a red left rule and a bold red
+% "Takeaway" label. Designed to sit inside result blocks (or as a stand-
+% alone box) without the "creepy" white-text-on-red look of a plain
+% colorblock. The body color is warm so the reader's eye stops on it.
+\definecolor{takeawaybg}{RGB}{255,250,235}
+\newtcolorbox{takeawaybox}{
+  enhanced, breakable,
+  colback=takeawaybg,
+  colframe=stevensred,
+  boxrule=0pt,
+  leftrule=2mm,
+  arc=0mm,
+  left=3mm, right=2mm, top=1mm, bottom=1mm,
+  fontupper=\normalsize,
+  before upper={\textbf{\textcolor{stevensred}{Takeaway.\ }}}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MAKE EACH BLOCK ATOMIC FOR MULTICOL
@@ -167,7 +195,7 @@
 \AfterEndEnvironment{contribblock}{\posterblockend}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CHECKMARKS AND CROSS
+% CHECKMARKS, CROSS, AND LINKS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{pifont}
@@ -175,45 +203,63 @@
 \newcommand{\xmark}{\textcolor{sintefred}{\ding{55}}}
 
 \hypersetup{colorlinks=true, urlcolor=stevensdarkblue, linkcolor=stevensdarkblue}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CUSTOM LINK COMMAND
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \newcommand{\hrefcol}[2]{\textcolor{stevensdarkblue}{\href{#1}{#2}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROJECT MACROS (rename system in one place)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\system}{YourSystem\xspace}
+\newcommand{\proj}[1]{\textsf{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTINGS - code-block style, line numbers on
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny\color{stevensdarkgray},
+  breaklines=true,
+  showstringspaces=false,
+  frame=single,
+  rulecolor=\color{stevenslightgray},
+  backgroundcolor=\color{white}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % POSTER METADATA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Your Poster Title Here}
+\title{Lorem Ipsum Dolor Sit Amet: Consectetur Adipiscing Elit Sed Eiusmod}
 
 % Multi-institution authors: use \inst{N} after each name, with N referring to
 % the institute index below. An author with multiple affiliations writes
 % \inst{1,3}. Authors are comma-separated on a single line.
 \author{%
-  First Author\inst{1},\enspace
-  Second Author\inst{2},\enspace
-  Third Author\inst{1,3}%
+  Lorem Ipsum\inst{1},\enspace
+  Dolor Sitamet\inst{2},\enspace
+  Consectetur Elit\inst{1,3}%
 }
 
 % Each institute is comma-separated and prefixed with a matching \inst{N}.
 % (Using literal commas instead of \and avoids beamerposter's title-template
 % inserting line breaks.)
 \institute{%
-  \inst{1}Stevens Institute of Technology,\enspace
-  \inst{2}Partner University,\enspace
-  \inst{3}Third Institution%
+  \inst{1}Lorem Ipsum University,\enspace
+  \inst{2}Dolor Sit Institute,\enspace
+  \inst{3}Amet Consectetur Laboratory%
 }
 
 \date{\today}
 
-% Project page and code repo URLs -- shown as QR codes in the header (top right)
-% and as text links in the footer. Toggle the switches below to hide either QR.
-\newcommand{\projecturl}{https://example.com/project}
-\newcommand{\projectlabel}{example.com/project}
-\newcommand{\codeurl}{https://github.com/your-repo}
-\newcommand{\codelabel}{github.com/your-repo}
+% Project page and code repo URLs -- shown as QR codes (or image placeholders)
+% in the header (top right) and as text links in the footer. Toggle the
+% switches below to hide either corner image.
+\newcommand{\projecturl}{https://loremipsum.example/project}
+\newcommand{\projectlabel}{loremipsum.example/project}
+\newcommand{\codeurl}{https://github.com/lorem/ipsum}
+\newcommand{\codelabel}{github.com/lorem/ipsum}
 
 \newif\ifshowprojectqr  \showprojectqrtrue  % comment out to hide project QR
 \newif\ifshowcodeqr     \showcodeqrtrue     % comment out to hide code QR
@@ -222,9 +268,11 @@
 % POSTER HEADER (full-width banner)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Right-corner content: 2 placeholder images side-by-side, 1 centered, or empty.
-% (To use real QR codes instead, \usepackage{qrcode} and replace each
-%  \includegraphics{example-image-*} with \qrcode[height=...]{\projecturl}.)
+% Right-corner content: 2 placeholder images side-by-side, 1 centered, or
+% empty. The shipped template uses example-image-a / example-image-b from
+% the mwe package so the layout is visible immediately. To use real QR
+% codes, \usepackage{qrcode} and replace each \includegraphics with
+% \qrcode[height=10cm]{\projecturl} (or \codeurl).
 \newcommand{\posterrightcorner}{%
   \ifshowprojectqr
     \ifshowcodeqr
@@ -262,7 +310,8 @@
   \end{minipage}\hfill
   \begin{minipage}[c]{0.54\linewidth}
     \centering
-    {\veryHuge\bfseries\color{stevensred}\inserttitle\par}
+    {\veryHuge\bfseries\color{stevensred}\linespread{0.85}\selectfont
+     \inserttitle\par}
     \vspace{0.3em}
     {\Large\insertauthor\par}
     \vspace{0.2em}
@@ -275,7 +324,7 @@
   {\color{stevensred}\rule{\linewidth}{2pt}}
 }
 
-% Footline template: red rule + contact strip, always anchored at page bottom
+% Footline template: red rule + contact strip, anchored at page bottom
 \setbeamertemplate{footline}{%
   \leavevmode%
   \begin{minipage}{\paperwidth}%
@@ -294,27 +343,52 @@
   \vspace{1em}%
 }
 
-% Number of body columns: 4 for landscape, 3 for portrait.
-\ifposterlandscape
-  \newcommand{\posternumcols}{4}
-\else
-  \newcommand{\posternumcols}{3}
-\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% POSTER BODY - figure-centric 3-column layout
+%
+%   left column  (0.235w): introduction / method narrative
+%   center col   (0.510w): hero diagram up top, then two text sub-columns
+%                          for algorithm / setup / formulation
+%   right column (0.235w): results (with takeaway boxes) + take-home
+%
+% Reading order flows column-by-column, sub-column-by-sub-column:
+%   left -> center top figure -> center sub-left -> center sub-right -> right
+%
+% Why this layout beats a flat multicols flow:
+%   - the diagram lands in the visual center of the poster, where the
+%     reader's eye naturally goes first
+%   - results stay together in a dedicated narrow column, so each result
+%     block + takeaway reads as a self-contained unit
+%   - narrow side columns force shorter lines, which is easier to scan
+%     at standing distance than 4 equal-width columns
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% All sections are concatenated into a single multicols stream and flowed
-% across columns automatically. Each beamer block is wrapped in a minipage
-% (see preamble) so multicol treats it as one atomic unit -- blocks move
-% between columns whole, never sliced mid-content. No manual \filbreak
-% needed in the section files.
 \newcommand{\posterbody}{%
-  \setlength{\columnsep}{3cm}%
-  \setlength{\columnseprule}{0pt}%
-  \begin{multicols}{\posternumcols}
-    \input{sections/001-introduction.tex}
-    \input{sections/002-methods.tex}
-    \input{sections/003-results.tex}
-    \input{sections/004-conclusion.tex}
-  \end{multicols}%
+  \begin{columns}[T]
+    \begin{column}{0.235\textwidth}
+      \input{sections/001-motivation.tex}
+      \input{sections/002-design.tex}
+      \input{sections/003-example.tex}
+    \end{column}%
+    \hfill
+    \begin{column}{0.510\textwidth}
+      \begin{center}
+        \scalebox{1}[0.5]{\includegraphics[width=\linewidth]{example-image}}
+      \end{center}
+      \vspace{0.6em}
+      \setlength{\columnsep}{2cm}%
+      \begin{multicols}{2}
+        \input{sections/004-algorithm.tex}
+        \columnbreak
+        \input{sections/005-setup.tex}
+      \end{multicols}
+    \end{column}%
+    \hfill
+    \begin{column}{0.235\textwidth}
+      \input{sections/006-results.tex}
+      \input{sections/007-takehome.tex}
+    \end{column}
+  \end{columns}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

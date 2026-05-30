@@ -1,0 +1,30 @@
+% ============================================
+% Section 4: Algorithm pseudocode
+% Lives in the CENTER column, LEFT sub-column (under the hero figure).
+% Uses algorithmicx; ends with a "Scaffold" note documenting the
+% experimental harness so the right sub-column starts clean.
+% ============================================
+
+\begin{block}{Algorithmus: Lorem Ipsum}
+\renewcommand{\algorithmicrequire}{\textbf{Lorem:}}
+\renewcommand{\algorithmicensure}{\textbf{Ipsum:}}
+\begin{algorithmic}[1]
+\Require lorem $k$, ipsum $R$, dolor $\mathit{conv}$
+\Ensure \textsc{lorem} or \textsc{ipsum}
+\For{$\mathit{attempt} \in \mathcal{T}$}
+  \State $\mathit{code} \gets \Call{Lorem}{\mathit{conv}}$ \Comment{lorem}
+  \State $\mathit{res} \gets \Call{Ipsum}{R,\,\mathit{code}}$
+  \If{$\mathit{res}.\mathit{passed}$}
+    \State \Return \textsc{lorem}
+  \EndIf
+  \If{$\mathit{attempt} = \mathit{ultimus}$}
+    \State \Return \textsc{ipsum}
+  \EndIf
+  \State $\mathit{a} \parallel \mathit{b} \gets \Call{Dolor}{\mathit{res}} \parallel \Call{Amet}{\mathit{res}}$
+  \State $\mathit{conv} \gets \mathit{conv} \mathbin{\Vert} (\mathit{a} \cup \mathit{b})$ \Comment{ipsum}
+\EndFor
+\end{algorithmic}
+
+\vspace{0.4em}
+{\footnotesize\textbf{Lorem.} Lorem ipsum dolor sit amet; consectetur adipiscing sandbox; sed do eiusmod parallel workers; ut labore per configuration.}
+\end{block}

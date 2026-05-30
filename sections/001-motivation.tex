@@ -1,0 +1,34 @@
+% ============================================
+% Section 1: Motivation + Related Work
+% Lives in the LEFT column, top. A block + small comparison table that
+% positions this work against existing approaches.
+% ============================================
+
+\begin{block}{1. Lorem Ipsum Dolor}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+\vspace{0.5em}
+\textbf{Ut enim ad minim veniam quis nostrud exercitation.}
+
+\vspace{0.4em}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Lorem} & \makecell{\textbf{Ipsum}\\\textbf{A}} & \makecell{\textbf{Dolor}\\\textbf{B}} & \makecell{\textbf{Amet}\\\textbf{C}} \\
+\midrule
+Lorem ipsum    & \xmark & \xmark & \xmark \\
+Dolor sit amet & \xmark & \xmark & \xmark \\
+Consectetur    & \xmark & \xmark & \cmark \\
+\midrule
+\textbf{\system (ours)} & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.6em}
+\raggedright
+\normalsize
+\system{} sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+\end{block}

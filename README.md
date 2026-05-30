@@ -5,7 +5,7 @@
 [![Stevens](https://img.shields.io/badge/Stevens%20Institute-of%20Technology-A32638.svg)](https://www.stevens.edu/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A clean, professional **A0 conference poster template** in official **Stevens Institute of Technology** branding. Built on `beamerposter` with the [Moloch](https://github.com/jolists/moloch) theme, Stevens red color scheme, custom block environments, an adaptive multi-column layout, and a one-line orientation toggle.
+A clean, professional **A0 conference poster template** in official **Stevens Institute of Technology** branding. Built on `beamerposter` with the [Moloch](https://github.com/jolists/moloch) theme, Stevens red color scheme, custom block environments, a **figure-centric 3-column layout** with a hero diagram in the visual center, a warm-cream **takeaway** call-out for results, and a one-line orientation toggle.
 
 <p align="center">
   <img src="assets/preview-landscape.png" alt="Poster preview (A0 landscape)" width="900"/>
@@ -17,18 +17,21 @@ A clean, professional **A0 conference poster template** in official **Stevens In
 
 ## You only edit two things
 
-> 1. **Content in `sections/*.tex`** -- one block after another, no layout hints.
+> 1. **Content in `sections/*.tex`** -- one block per file, mapped to a fixed slot in the layout.
 > 2. **The metadata block at the top of `main.tex`** -- title, authors, institutes, project / code URLs.
+> 3. **The hero figure in `figures/`** -- swap the default `example-image` placeholder for your own `\includegraphics{...}` call inside `\posterbody`.
 
-Everything else -- column widths, block placement, header banner, footer rule, QR-code corner, orientation geometry -- is handled by the template. No `\filbreak`, no manual column splits, no rebalancing when you add or remove a block.
+Everything else -- column widths, block placement, header banner, footer rule, takeaway call-out style, QR-code corner, orientation geometry -- is handled by the template.
 
 ## What's automatic
 
 | Concern                                | How it's handled                                                                                                |
 |----------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| **Adaptive column flow**               | All section content streams into a single balanced `multicols` block; LaTeX distributes blocks across columns. |
-| **Block atomicity**                    | Every `block` / `colorblock` / `contribblock` is wrapped in a minipage, so blocks move whole between columns -- never sliced mid-content. |
-| **Orientation**                        | One switch (`\posterlandscapetrue` / commented-out for portrait) picks A0 landscape (4 columns) or portrait (3 columns). |
+| **Figure-centric 3-column layout**     | Left narrow (0.235w) for intro / method, center wide (0.510w) with a hero diagram on top + 2 text sub-columns below, right narrow (0.235w) for results + take-home. |
+| **Hero diagram placement**             | Sits at the top of the center column, where the reader's eye lands first -- not buried in a results column.    |
+| **Takeaway call-out**                  | A `\begin{takeawaybox}` environment renders a cream body with a red left rule and a bold "Takeaway." prefix. Drop it inside any result block. |
+| **Block atomicity**                    | Every `block` / `colorblock` / `contribblock` is wrapped in a minipage so the center column's inner `multicols` moves blocks whole instead of slicing them mid-content. |
+| **Orientation**                        | One switch (`\posterlandscapetrue` / commented-out for portrait) picks A0 landscape or portrait. The 3-column layout is tuned for landscape. |
 | **Title centering**                    | Header is symmetric: logo on the left, title block in the middle, image corner on the right -- title always page-centered. |
 | **Multi-institution authors**          | Beamer's `\inst{N}` superscripts; authors and institutes render on a single line each, comma-separated.        |
 | **Footer divider at the bottom**       | Footer is in beamer's `footline` template, anchored to the bottom of every frame regardless of body height.    |
@@ -38,11 +41,13 @@ Everything else -- column widths, block placement, header banner, footer rule, Q
 ## Features
 
 - **Out-of-the-box A0** -- portrait or landscape, switchable with a single line
-- **Adaptive multi-column body** -- balanced columns, atomic blocks, no manual splits
+- **Figure-centric 3-column body** -- narrow / wide-with-figure-on-top + 2 sub-cols / narrow; reading order flows column-by-column
 - **Stevens-branded color scheme** -- Stevens red (#A32638) on block titles, accent rules, and links
 - **Moloch-inspired styling** -- minimal, information-dense blocks
-- **Full-width header banner** with Stevens long logo, title, multi-affiliation authors, and a 2-image corner (QR codes / photos / placeholders)
-- **Three custom block types** -- `block`, `colorblock`, `contribblock` -- on top of beamer's `alertblock` and `exampleblock`
+- **Full-width header banner** with Stevens long logo, title (set in `\veryHuge` with tightened line spread), multi-affiliation authors, and a 2-image corner (QR codes / photos / placeholders)
+- **Four custom block-like environments** -- `block`, `colorblock`, `contribblock`, and the `takeawaybox` call-out -- on top of beamer's `alertblock` and `exampleblock`
+- **Algorithm / listings ready** -- `algorithm` + `algpseudocode` + `listings` (with line numbers) preconfigured
+- **Renameable system macro** -- `\system` and `\proj{...}` defined in the preamble; change the system name in one place
 - **Check / cross marks** -- `\cmark` and `\xmark` for comparison tables
 - **Stevens red footer rule** with project URL, code URL, contact, and date
 
@@ -55,7 +60,7 @@ pdflatex main.tex
 pdflatex main.tex   # twice so multicol balances columns
 ```
 
-Open `main.tex`, edit the metadata block at the top (title, authors, institutes, URLs), then edit the four section files in `sections/`. That's it. Or use any LaTeX editor (Overleaf, Texifier, VSCode + Tectonic).
+Open `main.tex`, edit the metadata block at the top (title, authors, institutes, URLs), drop your hero figure into `figures/` and swap the `example-image` filename inside `\posterbody`, then edit the seven section files in `sections/`. That's it. Or use any LaTeX editor (Overleaf, Texifier, VSCode + Tectonic).
 
 ## Orientation
 
@@ -64,22 +69,27 @@ Open `main.tex`, edit the metadata block at the top (title, authors, institutes,
 \posterlandscapetrue   % comment out this line for portrait
 ```
 
-| Mode      | Page size        | Columns |
-|-----------|------------------|---------|
-| Landscape | A0 (1189x841 mm) | 4       |
-| Portrait  | A0 (841x1189 mm) | 3       |
+| Mode      | Page size        | Layout                                                |
+|-----------|------------------|-------------------------------------------------------|
+| Landscape | A0 (1189x841 mm) | 3 columns: narrow / wide-with-figure + 2 sub / narrow |
+| Portrait  | A0 (841x1189 mm) | Same 3-column structure, proportionally narrower      |
+
+The body layout is tuned for landscape; portrait still compiles but you may need to shorten section content so the narrower side columns don't overflow.
 
 ## Project Structure
 
 ```
 .
 ├── main.tex                    # Entry point -- preamble, header, body, footer
-├── sections/
-│   ├── 001-introduction.tex    # Motivation, RQs, contributions
-│   ├── 002-methods.tex         # Comparison table, pipeline, math
-│   ├── 003-results.tex         # Main results, ablation, findings
-│   └── 004-conclusion.tex      # Summary, take-home, contact
-├── figures/                    # Project images: author photos, diagrams, plots
+├── sections/                   # One file per layout slot, in reading order
+│   ├── 001-motivation.tex      # LEFT col, top: motivation + comparison table
+│   ├── 002-design.tex          # LEFT col, mid: approach / components
+│   ├── 003-example.tex         # LEFT col, bottom: concrete example
+│   ├── 004-algorithm.tex       # CENTER col, left sub: algorithm pseudocode
+│   ├── 005-setup.tex           # CENTER col, right sub: dataset + contributions
+│   ├── 006-results.tex         # RIGHT col, top: result blocks + takeawayboxes
+│   └── 007-takehome.tex        # RIGHT col, bottom: take-home contribblock
+├── figures/                    # Project images -- hero diagram goes here
 ├── assets/
 │   ├── stevens-long-logo.png   # Stevens logo (header banner, left)
 │   ├── logo_RGB.png            # Alt Stevens logo
@@ -90,7 +100,20 @@ Open `main.tex`, edit the metadata block at the top (title, authors, institutes,
 └── README.md
 ```
 
-`assets/` holds theme / branding files (logos, `.sty`); `figures/` holds project-specific images you'd swap per poster (author photos, diagrams, plots). Both are on `\graphicspath`, so `\includegraphics{photo-author1}` resolves wherever the file lives.
+`assets/` holds theme / branding files (logos, `.sty`); `figures/` holds project-specific images you'd swap per poster (the hero diagram, plots, author photos). Both are on `\graphicspath`, so `\includegraphics{my-diagram}` resolves wherever the file lives.
+
+### Layout map
+
+```
++---------------+-------------------------------+---------------+
+| 001 motivation|        HERO DIAGRAM           | 006 results   |
+|               |    (figures/your-diagram)     |  (with        |
+| 002 design    |                               |   takeaway-   |
+|               +---------------+---------------+   boxes)      |
+| 003 example   | 004 algorithm | 005 setup     |               |
+|               |               |               | 007 takehome  |
++---------------+---------------+---------------+---------------+
+```
 
 ## Customization
 
@@ -98,14 +121,26 @@ Most posters never need anything below this line -- defaults are sensible. Skim 
 
 ### Adding / removing a section
 
-Drop a new file in `sections/` following the `NNN-<desc>.tex` convention (e.g. `005-related-work.tex`) containing only `\begin{block}…\end{block}` calls. Add a single line `\input{sections/005-related-work.tex}` inside `\posterbody` in `main.tex`. Done -- the multicol layout re-flows automatically. No column rebalancing, no width tweaks.
+The layout has seven fixed slots (left top/mid/bottom, center sub-left, center sub-right, right top, right bottom). To **add** a block to an existing slot, append it to the corresponding section file. To **change which slot** a section feeds, edit `\posterbody` in `main.tex` -- it's a small `columns` + `multicols{2}` skeleton, easy to reorder. There is no automatic re-flow across slots: that's the trade-off for the figure-centric layout.
 
 ### Block environments
 
 - `\begin{block}{Title} ... \end{block}` -- Stevens-red header on light-gray body
 - `\begin{colorblock}[text color]{bg color}{Title} ... \end{colorblock}` -- arbitrary fg / bg
 - `\begin{contribblock}{Title} ... \end{contribblock}` -- red header on near-white body
+- `\begin{takeawaybox} ... \end{takeawaybox}` -- cream body with a red left rule and a bold "Takeaway." prefix. Drop it inside a result block to anchor the reader's eye on the message instead of the table.
 - Standard `alertblock` / `exampleblock` also work.
+
+### Project / system macros
+
+The preamble defines two macros so the system name lives in one place:
+
+```latex
+\newcommand{\system}{YourSystem\xspace}
+\newcommand{\proj}[1]{\textsf{#1}}
+```
+
+Use `\system` for the system name and `\proj{task-name}` for project / task names rendered in a sans-serif font. Renaming the system is a one-line change.
 
 ### Multi-institution author lists
 
@@ -165,14 +200,15 @@ Customize logo placement, font sizes, or banner height by editing the `\posterhe
 
 ## Requirements
 
-- A LaTeX distribution with Beamer + `beamerposter` + `multicol` + `etoolbox` + `qrcode` + `mwe` (TeX Live, MiKTeX, or MacTeX -- all standard packages, nothing exotic).
+- A LaTeX distribution with Beamer + `beamerposter` + `multicol` + `etoolbox` + `tcolorbox` + `algorithm` + `algpseudocode` + `listings` + `xspace` + `mwe` (TeX Live, MiKTeX, or MacTeX -- all standard packages, nothing exotic). Add `qrcode` if you swap the right-corner placeholders for real QR codes.
 - No external installation needed beyond the standard distribution; theme `.sty` files are bundled in `assets/`.
 
 ## Troubleshooting
 
-- **Columns look uneven.** Run `pdflatex` twice -- multicol needs the second pass to balance.
-- **A block overflows past a column.** That single block is taller than one column; split it into two blocks. (You'll see a visible vertical overshoot, not a silent error.)
+- **Center sub-columns look uneven.** Run `pdflatex` twice -- the inner `multicols{2}` needs the second pass to balance.
+- **A block overflows past a column.** That single block is taller than one column; split it into two blocks, or move it to a wider slot in `\posterbody`. (You'll see a visible vertical overshoot, not a silent error.)
 - **Title looks off-center.** The right-corner minipage is hidden but kept at width 0.22 to balance the left logo. Don't delete the minipage; toggle the QR switches off instead.
+- **The hero figure is too tall and pushes the center sub-columns off the page.** Shrink it: change `\includegraphics[width=\linewidth]{...}` inside `\posterbody` to `\includegraphics[width=0.9\linewidth]{...}` or cap the height with `[height=0.35\textheight,keepaspectratio]`.
 
 ## Contributing
 
