@@ -11,15 +11,15 @@ A clean, professional **A0 conference poster template** in official **Stevens In
   <img src="assets/preview-landscape.png" alt="Poster preview (A0 landscape)" width="900"/>
 </p>
 
-<p align="center"><sub>Default A0 landscape compile -- four-column adaptive flow, Stevens-branded header, QR / image corner, and footer URL strip.</sub></p>
+<p align="center"><sub>Default A0 landscape compile -- figure-centric 3-column layout with a half-height hero diagram in the center, Stevens-branded header, image / QR corner, and footer URL strip. Body shown with Lorem ipsum placeholder content.</sub></p>
 
 ---
 
-## You only edit two things
+## You only edit three things
 
 > 1. **Content in `sections/*.tex`** -- one block per file, mapped to a fixed slot in the layout.
 > 2. **The metadata block at the top of `main.tex`** -- title, authors, institutes, project / code URLs.
-> 3. **The hero figure in `figures/`** -- swap the default `example-image` placeholder for your own `\includegraphics{...}` call inside `\posterbody`.
+> 3. **The hero figure in `figures/`** -- swap the default `example-image` inside `\posterbody` for your own `\includegraphics{...}`. The shipped call is wrapped in `\scalebox{1}[0.5]{...}` to halve the figure's height; drop the wrapper or change the `0.5` factor to suit your diagram.
 
 Everything else -- column widths, block placement, header banner, footer rule, takeaway call-out style, QR-code corner, orientation geometry -- is handled by the template.
 
@@ -208,7 +208,7 @@ Customize logo placement, font sizes, or banner height by editing the `\posterhe
 - **Center sub-columns look uneven.** Run `pdflatex` twice -- the inner `multicols{2}` needs the second pass to balance.
 - **A block overflows past a column.** That single block is taller than one column; split it into two blocks, or move it to a wider slot in `\posterbody`. (You'll see a visible vertical overshoot, not a silent error.)
 - **Title looks off-center.** The right-corner minipage is hidden but kept at width 0.22 to balance the left logo. Don't delete the minipage; toggle the QR switches off instead.
-- **The hero figure is too tall and pushes the center sub-columns off the page.** Shrink it: change `\includegraphics[width=\linewidth]{...}` inside `\posterbody` to `\includegraphics[width=0.9\linewidth]{...}` or cap the height with `[height=0.35\textheight,keepaspectratio]`.
+- **The hero figure is too tall and pushes the center sub-columns off the page.** The shipped default wraps the figure in `\scalebox{1}[0.5]{...}` to halve its height; lower the `0.5` factor further, reduce the width (`\includegraphics[width=0.9\linewidth]{...}`), or cap the height with `[height=0.35\textheight,keepaspectratio]`.
 
 ## Contributing
 
